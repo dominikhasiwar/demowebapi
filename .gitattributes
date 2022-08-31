@@ -1,0 +1,79 @@
+* text=auto
+
+## SOURCE / TEXT
+*.acl     text
+*.bat     text
+*.cfg     text
+*.cs      text diff=csharp
+*.css     text
+*.dcf     text
+*.dcl     text
+*.fos     text
+*.htm     text
+*.html    text
+*.js      text
+*.json    text
+*.less    text
+*.map     text
+*.pubxml  text
+*.sch     text
+*.scss    text
+*.sgml    text
+*.sh      text
+*.style   text
+*.targets text
+*.tpl     text
+*.txt     text
+*.xhtml   text
+*.xsd     text
+*.xsl     text
+*.xslt    text
+catalog*  text
+*.ts      text
+
+## CASE-SENSITIVE PATTERNS
+*.[Dd][Tt][Dd] text
+*.[Ee][Nn][Tt] text
+*.[Ss][Gg][Mm] text
+*.[Xx][Mm][Ll] text
+
+## CONFIGS
+.config        text
+.gitattributes text
+.gitconfig     text
+.gitignore     text
+
+## BINARIES
+*.bmp  binary
+*.cer  binary
+*.cgm  binary
+*.exe  binary
+*.gif  binary
+*.ico  binary
+*.iso  binary
+*.jar  binary
+*.jpeg binary
+*.jpg  binary
+*.pdf  binary
+*.png  binary
+*.svg  text
+*.svgz binary
+*.swf  binary
+*.tif  binary
+*.tiff binary
+*.xls  binary
+*.xlsx binary
+*.zip  binary
+
+## FONTS
+*.ttf   binary
+*.eot   binary
+*.otf   binary
+*.woff  binary
+*.woff2 binary
+
+# VS files. most likely include crlf as EOL, not that we can change it anyways...
+*.csproj text eol=crlf
+*.pfx binary
+*.sln text eol=crlf
+*.snk binary
