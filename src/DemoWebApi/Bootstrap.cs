@@ -82,7 +82,7 @@ namespace DemoWebApi
                 cfg.AddSerilog(Log.Logger);
             });
 
-            // Configure dependecy injection
+            // Configure dependency injection
             builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
             var container = new WindsorContainer();
