@@ -2,8 +2,6 @@
 using DemoWebApi.Entities;
 using DemoWebApi.Exceptions;
 using DemoWebApi.Models;
-using DemoWebApi.Providers;
-using FluentValidation;
 
 namespace DemoWebApi.Managers
 {

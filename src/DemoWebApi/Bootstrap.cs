@@ -1,4 +1,6 @@
 ﻿using System.Reflection;
+using Asp.Versioning;
+using Asp.Versioning.ApiExplorer;
 using Castle.Facilities.AspNetCore;
 using Castle.MicroKernel.Resolvers.SpecializedResolvers;
 using Castle.Windsor;
@@ -7,9 +9,6 @@ using DemoWebApi.Attributes;
 using DemoWebApi.Common;
 using DemoWebApi.Handlers;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ApiExplorer;
-using Microsoft.AspNetCore.Mvc.Versioning;
-using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
 using Serilog;
 
@@ -61,12 +60,10 @@ namespace DemoWebApi
                     new UrlSegmentApiVersionReader(),
                     new HeaderApiVersionReader("x-api-version"),
                     new MediaTypeApiVersionReader("x-api-version"));
-            });
-
-            builder.Services.AddVersionedApiExplorer(setup =>
+            }).AddApiExplorer(opt =>
             {
-                setup.GroupNameFormat = "'v'VVV";
-                setup.SubstituteApiVersionInUrl = true;
+                opt.GroupNameFormat = "'v'VVV";
+                opt.SubstituteApiVersionInUrl = true;
             });
 
             builder.Services.AddEndpointsApiExplorer();
@@ -96,7 +93,7 @@ namespace DemoWebApi
             builder.Services.AddWindsor(container);
 
             // Build app
-           var app = builder.Build();
+            var app = builder.Build();
 
             app.ConfigureExceptionHandler();
 
