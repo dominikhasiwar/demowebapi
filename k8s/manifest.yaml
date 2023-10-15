@@ -1,0 +1,85 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: demowebapi-config
+  namespace: default
+  labels:
+    app: demowebapi
+data:
+  appsettings.json: |
+    {
+      "BaseAddress": "http://+:80",
+      "Serilog": {
+        "MinimumLevel": {
+        "Default": "Debug",
+          "Override": {
+              "Microsoft": "Error",
+              "System": "Error"
+          }
+        },
+        "WriteTo": [
+          {
+            "Name": "Console",
+            "Args": {
+              "OutputTemplate": "{Timestamp:yyyy-MM-dd HH:mm:ss} [{Level:u3}] {Message:lj}{NewLine}{Exception}"
+            }
+          }
+        ]
+      }
+    }
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demowebapi-depl
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: demowebapi
+      service: webapp
+  template:
+    metadata:
+      labels:
+        app: demowebapi
+        service: webapp
+    spec:
+      containers:
+        - name: demowebapi
+          image: domih/demowebapi
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+              protocol: TCP
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "125m"
+            limits:
+              memory: "256Mi"
+              cpu: "250m"
+          volumeMounts:
+            - name: demowebapi-config
+              mountPath: /app/appsettings.json
+              subPath: appsettings.json
+      volumes:
+        - name: demowebapi-config
+          configMap:
+            name: demowebapi-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: demowebapi-np-srv
+  labels:
+    app: demowebapi
+    service: webapp
+spec:
+  type: NodePort
+  ports:
+    - port: 8585
+      targetPort: 80
+      protocol: TCP
+  selector:
+    app: demowebapi
