@@ -1,0 +1,29 @@
+name: CI Pipeline
+
+on: [push]
+
+defaults:
+  run:
+    working-directory: src/DemoWebApi
+
+jobs:
+  build:
+    runs-on: arc-runner-set
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: "8.0.x"
+        env:
+          DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+          NUGET_CERT_REVOCATION_MODE: offline
+
+      - name: Build
+        run: dotnet build
+
+      - name: Test
+        run: dotnet test --no-build --verbosity normal
